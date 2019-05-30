@@ -51,32 +51,6 @@ abstract class Product {
         this.item = item;
     }
 
-    public static void decreaseQuality(Item item) {
-        if (item.quality == 0) return;
-        addQuality(item, -1);
-    }
-
-    public static void increaseQuality(Item item, int by) {
-        if (by < 0) return;
-        if (item.quality + by >= 50) {
-            item.quality = 50;
-        } else {
-            item.quality += by;
-        }
-    }
-
-    public static void qualityToZero(Item item) {
-        item.quality = item.quality - item.quality;
-    }
-
-    public static void addQuality(Item item, int i) {
-        item.quality = item.quality + i;
-    }
-
-    public static void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
-    }
-
     public void handle() {
         changeQuality();
         changeSellIn();
@@ -85,6 +59,32 @@ abstract class Product {
     public abstract void changeQuality();
 
     public abstract void changeSellIn();
+
+    protected void decreaseQuality() {
+        if (item.quality == 0) return;
+        addQuality(-1);
+    }
+
+    protected void increaseQuality(int by) {
+        if (by < 0) return;
+        if (item.quality + by >= 50) {
+            item.quality = 50;
+        } else {
+            item.quality += by;
+        }
+    }
+
+    protected void qualityToZero() {
+        item.quality = item.quality - item.quality;
+    }
+
+    protected void addQuality(int i) {
+        item.quality = item.quality + i;
+    }
+
+    protected void decreaseSellIn() {
+        item.sellIn = item.sellIn - 1;
+    }
 
 }
 
@@ -96,16 +96,16 @@ class AgedBrie extends Product {
 
     @Override
     public void changeQuality() {
-        increaseQuality(item, 1);
+        increaseQuality(1);
 
         if (item.sellIn < 0) {
-            increaseQuality(item, 1);
+            increaseQuality(1);
         }
     }
 
     @Override
     public void changeSellIn() {
-        decreaseSellIn(item);
+        decreaseSellIn();
     }
 }
 
@@ -117,22 +117,22 @@ class ConcertPass extends Product {
 
     @Override
     public void changeQuality() {
-        increaseQuality(item, 1);
+        increaseQuality(1);
 
         if (item.sellIn > 5 && item.sellIn < 11) {
-            increaseQuality(item, 1);
+            increaseQuality(1);
         } else if (item.sellIn < 6) {
-            increaseQuality(item, 2);
+            increaseQuality(2);
         }
 
         if (item.sellIn < 0) {
-            qualityToZero(item);
+            qualityToZero();
         }
     }
 
     @Override
     public void changeSellIn() {
-        decreaseSellIn(item);
+        decreaseSellIn();
     }
 }
 
@@ -159,15 +159,15 @@ class OtherProduct extends Product {
 
     @Override
     public void changeQuality() {
-        decreaseQuality(item);
+        decreaseQuality();
 
         if (item.sellIn < 0) {
-            decreaseQuality(item);
+            decreaseQuality();
         }
     }
 
     @Override
     public void changeSellIn() {
-        decreaseSellIn(item);
+        decreaseSellIn();
     }
 }
