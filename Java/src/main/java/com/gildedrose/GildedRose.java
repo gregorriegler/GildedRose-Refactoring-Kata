@@ -32,15 +32,21 @@ class GildedRose {
 
             } else {
                 if (item.quality > 0) {
-                    decreaseQualityOfNonLegendary(item);
+                    if (!isLegendary(item)) {
+                        addQuality(item, -1);
+                    }
                 }
 
                 if (item.sellIn < 0) {
-                    decreaseQualityOfNonLegendary(item);
+                    if (!isLegendary(item)) {
+                        addQuality(item, -1);
+                    }
                 }
             }
 
-            decreaseSellInOfNonLegendary(item);
+            if (!isLegendary(item)) {
+                decreaseSellIn(item);
+            }
         }
     }
 
@@ -50,18 +56,6 @@ class GildedRose {
             item.quality = 50;
         } else {
             item.quality += by;
-        }
-    }
-
-    private void decreaseSellInOfNonLegendary(Item item) {
-        if (!isLegendary(item)) {
-            decreaseSellIn(item);
-        }
-    }
-
-    private void decreaseQualityOfNonLegendary(Item item) {
-        if (!isLegendary(item)) {
-            addQuality(item, -1);
         }
     }
 
