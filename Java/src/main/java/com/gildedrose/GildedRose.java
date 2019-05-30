@@ -71,7 +71,14 @@ abstract class Product {
         item.sellIn = item.sellIn - 1;
     }
 
-    public abstract void handle();
+    public void handle() {
+        changeQuality();
+        changeSellIn();
+    }
+
+    public abstract void changeQuality();
+
+    public abstract void changeSellIn();
 
 }
 
@@ -82,6 +89,7 @@ class AgedBrie extends Product {
         this.item = item;
     }
 
+    @Override
     public void changeQuality() {
         increaseQuality(item, 1);
 
@@ -90,14 +98,9 @@ class AgedBrie extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
 
@@ -108,6 +111,7 @@ class ConcertPass extends Product {
         this.item = item;
     }
 
+    @Override
     public void changeQuality() {
         increaseQuality(item, 1);
 
@@ -122,14 +126,9 @@ class ConcertPass extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
 
@@ -140,16 +139,12 @@ class Legendary extends Product {
         this.item = item;
     }
 
+    @Override
     public void changeQuality() {
     }
 
-    public void changeSellIn() {
-    }
-
     @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
+    public void changeSellIn() {
     }
 }
 
@@ -160,6 +155,7 @@ class OtherProduct extends Product {
         this.item = item;
     }
 
+    @Override
     public void changeQuality() {
         decreaseQuality(item);
 
@@ -168,13 +164,8 @@ class OtherProduct extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
