@@ -22,9 +22,7 @@ class GildedRose {
                     }
                 }
             } else if (item.quality > 0) {
-                if (!isLegendary(item)) {
-                    addQuality(item, -1);
-                }
+                decreaseQualityOfNonLegendary(item);
             }
 
             if (!isLegendary(item)) {
@@ -39,11 +37,15 @@ class GildedRose {
                 } else if (isConcertPasses(item)) {
                     qualityToZero(item);
                 } else if (item.quality > 0) {
-                    if (!isLegendary(item)) {
-                        addQuality(item, -1);
-                    }
+                    decreaseQualityOfNonLegendary(item);
                 }
             }
+        }
+    }
+
+    private void decreaseQualityOfNonLegendary(Item item) {
+        if (!isLegendary(item)) {
+            addQuality(item, -1);
         }
     }
 
