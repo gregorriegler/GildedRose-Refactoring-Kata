@@ -41,17 +41,16 @@ class GildedRose {
                 } else {
                     if (isConcertPasses(item)) {
                         qualityToZero(item);
-                    } else {
-                        if (item.quality > 0) {
-                            if (!isLegendary(item)) {
-                                addQuality(item, -1);
-                            }
+                    } else if (item.quality > 0) {
+                        if (!isLegendary(item)) {
+                            addQuality(item, -1);
                         }
                     }
                 }
             }
         }
     }
+
 
     private boolean isAgedBrie(Item item) {
         return item.name.equals("Aged Brie");
