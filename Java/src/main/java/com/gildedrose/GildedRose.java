@@ -9,10 +9,10 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!isAgedBrie(item)
+                && !isConcertPasses(item)) {
                 if (item.quality > 0) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                    if (!isLegendary(item)) {
                         addQuality(item, -1);
                     }
                 }
@@ -20,7 +20,7 @@ class GildedRose {
                 if (item.quality < 50) {
                     addQuality(item, 1);
 
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (isConcertPasses(item)) {
                         if (item.sellIn > 5 && item.sellIn < 11) {
                             addQuality(item, 1);
                         } else if (item.sellIn < 6) {
@@ -30,13 +30,13 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (!isLegendary(item)) {
                 decreaseSellIn(item);
             }
 
             if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (!isAgedBrie(item)) {
+                    if (!isConcertPasses(item)) {
                         if (item.quality > 0) {
                             if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
                                 addQuality(item, -1);
@@ -52,6 +52,18 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean isAgedBrie(Item item) {
+        return item.name.equals("Aged Brie");
+    }
+
+    private boolean isConcertPasses(Item item) {
+        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
+    private boolean isLegendary(Item item) {
+        return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
     private void decreaseSellIn(Item item) {
