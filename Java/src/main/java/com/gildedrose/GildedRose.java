@@ -64,6 +64,18 @@ abstract class Product {
         return item.sellIn < 0;
     }
 
+    protected boolean daysLeftBetween(int min, int max) {
+        return moreThanDaysLeft(min) && lessThanDaysLeft(max);
+    }
+
+    protected boolean moreThanDaysLeft(int days) {
+        return item.sellIn > days;
+    }
+
+    protected boolean lessThanDaysLeft(int days) {
+        return item.sellIn < days;
+    }
+
     protected void decreaseQuality() {
         if (item.quality == 0) return;
         addQuality(-1);
@@ -121,29 +133,17 @@ class ConcertPass extends Product {
 
     @Override
     public void changeQuality() {
-        increaseQuality(1);
-
-        if (daysLeftBetween(5, 11)) {
-            increaseQuality(1);
-        } else if (lessThanDaysLeft(6)) {
+        if (lessThanDaysLeft(6)) {
+            increaseQuality(3);
+        } else if (daysLeftBetween(5, 11)) {
             increaseQuality(2);
+        } else {
+            increaseQuality(1);
         }
 
         if (shouldHaveBeenSold()) {
             qualityToZero();
         }
-    }
-
-    protected boolean daysLeftBetween(int min, int max) {
-        return moreThanDaysLeft(min) && lessThanDaysLeft(max);
-    }
-
-    protected boolean moreThanDaysLeft(int days) {
-        return item.sellIn > days;
-    }
-
-    protected boolean lessThanDaysLeft(int days) {
-        return item.sellIn < days;
     }
 
     @Override
