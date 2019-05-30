@@ -26,8 +26,6 @@ class GildedRose {
                 decreaseQualityOfNonLegendary(item);
             }
 
-            decreaseSellInOfNonLegendary(item);
-
             if (item.sellIn < 0) {
                 if (isAgedBrie(item)) {
                     if (item.quality < 50) {
@@ -39,6 +37,8 @@ class GildedRose {
                     decreaseQualityOfNonLegendary(item);
                 }
             }
+
+            decreaseSellInOfNonLegendary(item);
         }
     }
 
