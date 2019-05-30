@@ -11,35 +11,19 @@ class GildedRose {
         for (Item item : items) {
 
             if (isAgedBrie(item)) {
-                handleBrie(new AgedBrie(item));
+                AgedBrie agedBrie = new AgedBrie(item);
+                agedBrie.handle(this);
             } else if (isConcertPasses(item)) {
-                handleConcertPasses(new ConcertPass(item));
+                ConcertPass concertPass = new ConcertPass(item);
+                concertPass.handle(this);
             } else if (isLegendary(item)) {
-                handleLegendary(new Legendary(item));
+                Legendary legendary = new Legendary(item);
+                legendary.handle(this);
             } else {
-                handleOtherItems(new OtherProduct(item));
+                OtherProduct otherProduct = new OtherProduct(item);
+                otherProduct.handle(this);
             }
         }
-    }
-
-    private void handleOtherItems(OtherProduct otherProduct) {
-        changeQualityOfOtherItem(otherProduct.getItem());
-        changeSellInOfOtherItem(otherProduct.getItem());
-    }
-
-    private void handleLegendary(Legendary legendary) {
-        changeQualityOfLegendary(legendary.getItem());
-        changeSellInOfLegendary(legendary.getItem());
-    }
-
-    private void handleConcertPasses(ConcertPass concertPass) {
-        changeQualityOfConcertPasses(concertPass.getItem());
-        changeSellInOfConcertPasses(concertPass.getItem());
-    }
-
-    private void handleBrie(AgedBrie agedBrie) {
-        changeQualityOfBrie(agedBrie.getItem());
-        changeSellInOfBrie(agedBrie.getItem());
     }
 
     private boolean isAgedBrie(Item item) {
@@ -54,7 +38,7 @@ class GildedRose {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
-    private void changeQualityOfOtherItem(Item item) {
+    public void changeQualityOfOtherItem(Item item) {
         decreaseQuality(item);
 
         if (item.sellIn < 0) {
@@ -62,7 +46,7 @@ class GildedRose {
         }
     }
 
-    private void changeQualityOfConcertPasses(Item item) {
+    public void changeQualityOfConcertPasses(Item item) {
         increaseQuality(item, 1);
 
         if (item.sellIn > 5 && item.sellIn < 11) {
@@ -76,7 +60,7 @@ class GildedRose {
         }
     }
 
-    private void changeQualityOfBrie(Item item) {
+    public void changeQualityOfBrie(Item item) {
         increaseQuality(item, 1);
 
         if (item.sellIn < 0) {
@@ -84,30 +68,30 @@ class GildedRose {
         }
     }
 
-    private void changeQualityOfLegendary(Item item) {
+    public void changeQualityOfLegendary(Item item) {
     }
 
-    private void changeSellInOfLegendary(Item item) {
+    public void changeSellInOfLegendary(Item item) {
     }
 
-    private void changeSellInOfOtherItem(Item item) {
+    public void changeSellInOfOtherItem(Item item) {
         decreaseSellIn(item);
     }
 
-    private void changeSellInOfConcertPasses(Item item) {
+    public void changeSellInOfConcertPasses(Item item) {
         decreaseSellIn(item);
     }
 
-    private void changeSellInOfBrie(Item item) {
+    public void changeSellInOfBrie(Item item) {
         decreaseSellIn(item);
     }
 
-    private void decreaseQuality(Item item) {
+    public void decreaseQuality(Item item) {
         if (item.quality == 0) return;
         addQuality(item, -1);
     }
 
-    private void increaseQuality(Item item, int by) {
+    public void increaseQuality(Item item, int by) {
         if (by < 0) return;
         if (item.quality + by >= 50) {
             item.quality = 50;
@@ -116,15 +100,15 @@ class GildedRose {
         }
     }
 
-    private void qualityToZero(Item item) {
+    public void qualityToZero(Item item) {
         item.quality = item.quality - item.quality;
     }
 
-    private void addQuality(Item item, int i) {
+    public void addQuality(Item item, int i) {
         item.quality = item.quality + i;
     }
 
-    private void decreaseSellIn(Item item) {
+    public void decreaseSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
     }
 
@@ -140,6 +124,11 @@ class AgedBrie {
     public Item getItem() {
         return item;
     }
+
+    public void handle(GildedRose gildedRose) {
+        gildedRose.changeQualityOfBrie(getItem());
+        gildedRose.changeSellInOfBrie(getItem());
+    }
 }
 
 class ConcertPass {
@@ -151,6 +140,11 @@ class ConcertPass {
 
     public Item getItem() {
         return item;
+    }
+
+    public void handle(GildedRose gildedRose) {
+        gildedRose.changeQualityOfConcertPasses(getItem());
+        gildedRose.changeSellInOfConcertPasses(getItem());
     }
 }
 
@@ -164,6 +158,11 @@ class Legendary {
     public Item getItem() {
         return item;
     }
+
+    public void handle(GildedRose gildedRose) {
+        gildedRose.changeQualityOfLegendary(getItem());
+        gildedRose.changeSellInOfLegendary(getItem());
+    }
 }
 
 class OtherProduct {
@@ -175,5 +174,10 @@ class OtherProduct {
 
     public Item getItem() {
         return item;
+    }
+
+    public void handle(GildedRose gildedRose) {
+        gildedRose.changeQualityOfOtherItem(getItem());
+        gildedRose.changeSellInOfOtherItem(getItem());
     }
 }
