@@ -76,18 +76,18 @@ abstract class Product {
         return item.sellIn < days;
     }
 
-    protected void decreaseQuality() {
-        if (item.quality == 0) return;
-        addQuality(-1);
+    protected void increaseQuality(int by) {
+        addQuality(by);
     }
 
-    protected void increaseQuality(int by) {
-        if (by < 0) return;
-        if (item.quality + by >= 50) {
-            item.quality = 50;
-        } else {
-            item.quality += by;
-        }
+    protected void decreaseQuality(int by) {
+        addQuality(by * -1);
+    }
+
+    private void addQuality(int i) {
+        item.quality = item.quality + i;
+        if(item.quality <= 0) item.quality = 0;
+        if(item.quality >= 50) item.quality = 50;
     }
 
     protected void qualityToZero() {
@@ -96,10 +96,6 @@ abstract class Product {
 
     protected void decreaseSellIn() {
         item.sellIn = item.sellIn - 1;
-    }
-
-    private void addQuality(int i) {
-        item.quality = item.quality + i;
     }
 
 }
@@ -133,16 +129,14 @@ class ConcertPass extends Product {
 
     @Override
     public void changeQuality() {
-        if (lessThanDaysLeft(6)) {
+        if (shouldHaveBeenSold()) {
+            qualityToZero();
+        } else if (lessThanDaysLeft(6)) {
             increaseQuality(3);
         } else if (daysLeftBetween(5, 11)) {
             increaseQuality(2);
         } else {
             increaseQuality(1);
-        }
-
-        if (shouldHaveBeenSold()) {
-            qualityToZero();
         }
     }
 
@@ -175,10 +169,10 @@ class OtherProduct extends Product {
 
     @Override
     public void changeQuality() {
-        decreaseQuality();
-
         if (shouldHaveBeenSold()) {
-            decreaseQuality();
+            decreaseQuality(2);
+        } else {
+            decreaseQuality(1);
         }
     }
 
