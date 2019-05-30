@@ -78,12 +78,12 @@ abstract class Product {
         item.quality = item.quality - item.quality;
     }
 
-    protected void addQuality(int i) {
-        item.quality = item.quality + i;
-    }
-
     protected void decreaseSellIn() {
         item.sellIn = item.sellIn - 1;
+    }
+
+    private void addQuality(int i) {
+        item.quality = item.quality + i;
     }
 
 }
