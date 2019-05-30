@@ -11,14 +11,17 @@ class GildedRose {
         for (Item item : items) {
 
             if (isAgedBrie(item)) {
+                //change quality based on sellIn
                 increaseQuality(item, 1);
 
                 if (item.sellIn < 0) {
                     increaseQuality(item, 1);
                 }
 
+                //change sellIn
                 decreaseSellIn(item);
             } else if (isConcertPasses(item)) {
+                //change quality based on sellIn
                 increaseQuality(item, 1);
 
                 if (item.sellIn > 5 && item.sellIn < 11) {
@@ -31,16 +34,21 @@ class GildedRose {
                     qualityToZero(item);
                 }
 
+                //change sellIn
                 decreaseSellIn(item);
             } else if (isLegendary(item)) {
+                //change quality based on sellIn ...
 
+                //change sellIn ...
             } else {
+                //change quality based on sellIn
                 decreaseQuality(item);
 
                 if (item.sellIn < 0) {
                     decreaseQuality(item);
                 }
 
+                //change sellIn
                 decreaseSellIn(item);
             }
         }
