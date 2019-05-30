@@ -11,45 +11,17 @@ class GildedRose {
         for (Item item : items) {
 
             if (isAgedBrie(item)) {
-                //change quality based on sellIn
-                increaseQuality(item, 1);
-
-                if (item.sellIn < 0) {
-                    increaseQuality(item, 1);
-                }
-
-                //change sellIn
-                decreaseSellIn(item);
+                changeQualityOfBrie(item);
+                changeSellInOfBrie(item);
             } else if (isConcertPasses(item)) {
-                //change quality based on sellIn
-                increaseQuality(item, 1);
-
-                if (item.sellIn > 5 && item.sellIn < 11) {
-                    increaseQuality(item, 1);
-                } else if (item.sellIn < 6) {
-                    increaseQuality(item, 2);
-                }
-
-                if (item.sellIn < 0) {
-                    qualityToZero(item);
-                }
-
-                //change sellIn
-                decreaseSellIn(item);
+                changeQualityOfConcertPasses(item);
+                changeSellInOfConcertPasses(item);
             } else if (isLegendary(item)) {
-                //change quality based on sellIn ...
-
-                //change sellIn ...
+                changeQualityOfLegendary(item);
+                changeSellInOfLegendary(item);
             } else {
-                //change quality based on sellIn
-                decreaseQuality(item);
-
-                if (item.sellIn < 0) {
-                    decreaseQuality(item);
-                }
-
-                //change sellIn
-                decreaseSellIn(item);
+                changeQualityOfOtherItem(item);
+                changeSellInOfOtherItem(item);
             }
         }
     }
@@ -64,6 +36,54 @@ class GildedRose {
 
     private boolean isLegendary(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
+    }
+
+    private void changeQualityOfOtherItem(Item item) {
+        decreaseQuality(item);
+
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
+        }
+    }
+
+    private void changeQualityOfConcertPasses(Item item) {
+        increaseQuality(item, 1);
+
+        if (item.sellIn > 5 && item.sellIn < 11) {
+            increaseQuality(item, 1);
+        } else if (item.sellIn < 6) {
+            increaseQuality(item, 2);
+        }
+
+        if (item.sellIn < 0) {
+            qualityToZero(item);
+        }
+    }
+
+    private void changeQualityOfBrie(Item item) {
+        increaseQuality(item, 1);
+
+        if (item.sellIn < 0) {
+            increaseQuality(item, 1);
+        }
+    }
+
+    private void changeQualityOfLegendary(Item item) {
+    }
+
+    private void changeSellInOfLegendary(Item item) {
+    }
+
+    private void changeSellInOfOtherItem(Item item) {
+        decreaseSellIn(item);
+    }
+
+    private void changeSellInOfConcertPasses(Item item) {
+        decreaseSellIn(item);
+    }
+
+    private void changeSellInOfBrie(Item item) {
+        decreaseSellIn(item);
     }
 
     private void decreaseQuality(Item item) {
