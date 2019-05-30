@@ -8,146 +8,146 @@ public class GildedRoseTest {
 
     @Test
     public void doesNotChangeName() {
-        GildedRose app = gildedRoseOf(SOME_ITEM, 0, 0);
+        GildedRose rose = gildedRoseOf(SOME_ITEM, 0, 0);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(SOME_ITEM, app.items[0].name);
+        assertEquals(SOME_ITEM, rose.items[0].name);
     }
 
     @Test
     public void someItem_sellInDecreases() {
-        GildedRose app = gildedRoseOf(SOME_ITEM, 10, 0);
+        GildedRose rose = gildedRoseOf(SOME_ITEM, 10, 0);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(9, app.items[0].sellIn);
+        assertEquals(9, rose.items[0].sellIn);
     }
 
     @Test
     public void someItem_qualityDoesNotDropBelow0() {
-        GildedRose app = gildedRoseOf(SOME_ITEM, 0, 0);
+        GildedRose rose = gildedRoseOf(SOME_ITEM, 0, 0);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(0, app.items[0].quality);
+        assertEquals(0, rose.items[0].quality);
     }
 
     @Test
     public void someItem_qualityDecreasesBy1() {
-        GildedRose app = gildedRoseOf(SOME_ITEM, 1, 5);
+        GildedRose rose = gildedRoseOf(SOME_ITEM, 1, 5);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(4, app.items[0].quality);
+        assertEquals(4, rose.items[0].quality);
     }
 
     @Test
     public void someItem_conjured_qualityDecreasesBy2() {
-        GildedRose app = gildedRoseOf(SOME_ITEM, -1, 5);
+        GildedRose rose = gildedRoseOf(SOME_ITEM, -1, 5);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(3, app.items[0].quality);
+        assertEquals(3, rose.items[0].quality);
     }
 
     @Test
     public void legendary_sellInStaysTheSame() {
-        GildedRose app = gildedRoseOf(LEGENDARY, 5, 20);
+        GildedRose rose = gildedRoseOf(LEGENDARY, 5, 20);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(5, app.items[0].sellIn);
+        assertEquals(5, rose.items[0].sellIn);
     }
 
     @Test
     public void legendary_qualityStaysTheSame() {
-        GildedRose app = gildedRoseOf(LEGENDARY, 5, 10);
+        GildedRose rose = gildedRoseOf(LEGENDARY, 5, 10);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(10, app.items[0].quality);
+        assertEquals(10, rose.items[0].quality);
     }
 
     @Test
     public void legendary_shouldHaveBeenSold_qualityStaysTheSame() {
-        GildedRose app = gildedRoseOf(LEGENDARY, -1, 50);
+        GildedRose rose = gildedRoseOf(LEGENDARY, -1, 50);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(50, app.items[0].quality);
+        assertEquals(50, rose.items[0].quality);
     }
 
     @Test
     public void agedBrie_shouldHaveBeenSold_qualityLessThan50_qualityIncreases() {
-        GildedRose app = gildedRoseOf(AGED_BRIE, -1, 10);
+        GildedRose rose = gildedRoseOf(AGED_BRIE, -1, 10);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(12, app.items[0].quality);
+        assertEquals(12, rose.items[0].quality);
     }
 
     @Test
     public void agedBrie_shouldHaveBeenSold_qualityWontPass50() {
-        GildedRose app = gildedRoseOf(AGED_BRIE, -1, 50);
+        GildedRose rose = gildedRoseOf(AGED_BRIE, -1, 50);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(50, app.items[0].quality);
+        assertEquals(50, rose.items[0].quality);
     }
 
     @Test
     public void agedBrie_qualityIncreases() {
-        GildedRose app = gildedRoseOf(AGED_BRIE, 2, 30);
+        GildedRose rose = gildedRoseOf(AGED_BRIE, 2, 30);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(31, app.items[0].quality);
+        assertEquals(31, rose.items[0].quality);
     }
 
     @Test
     public void concertPasses_sellInMoreThan10Days_qualityIncreases() {
-        GildedRose app = gildedRoseOf(CONCERT_PASS, 11, 30);
+        GildedRose rose = gildedRoseOf(CONCERT_PASS, 11, 30);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(31, app.items[0].quality);
+        assertEquals(31, rose.items[0].quality);
     }
 
     @Test
     public void concertPasses_sellInLessThan11Days_QualityAt50_qualityStaysSame() {
-        GildedRose app = gildedRoseOf(CONCERT_PASS, 10, 50);
+        GildedRose rose = gildedRoseOf(CONCERT_PASS, 10, 50);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(50, app.items[0].quality);
+        assertEquals(50, rose.items[0].quality);
     }
 
     @Test
     public void concertPasses_sellInLessThan11Days_QualityBelow50_qualityIncreasesByTwo() {
-        GildedRose app = gildedRoseOf(CONCERT_PASS, 10, 30);
+        GildedRose rose = gildedRoseOf(CONCERT_PASS, 10, 30);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(32, app.items[0].quality);
+        assertEquals(32, rose.items[0].quality);
     }
 
     @Test
     public void concertPasses_sellInLessThan6Days_qualityIncreasesByThree() {
-        GildedRose app = gildedRoseOf(CONCERT_PASS, 5, 30);
+        GildedRose rose = gildedRoseOf(CONCERT_PASS, 5, 30);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(33, app.items[0].quality);
+        assertEquals(33, rose.items[0].quality);
     }
 
     @Test
     public void concertPasses_shouldHaveBeenSold_qualityGoesTo0() {
-        GildedRose app = gildedRoseOf(CONCERT_PASS, -1, 50);
+        GildedRose rose = gildedRoseOf(CONCERT_PASS, -1, 50);
 
-        app.updateQuality();
+        rose.updateQuality();
 
-        assertEquals(0, app.items[0].quality);
+        assertEquals(0, rose.items[0].quality);
     }
 
     public static final String SOME_ITEM = "foo";
@@ -156,13 +156,7 @@ public class GildedRoseTest {
     public static final String AGED_BRIE = "Aged Brie";
 
     private GildedRose gildedRoseOf(String aged_brie, int sellIn, int quality) {
-        return new GildedRose(
-            itemsList(anItemOf(aged_brie, sellIn, quality))
-        );
-    }
-
-    private Item[] itemsList(Item... items) {
-        return items;
+        return new GildedRose(anItemOf(aged_brie, sellIn, quality));
     }
 
     private Item anItemOf(String foo, int sellIn, int quality) {
