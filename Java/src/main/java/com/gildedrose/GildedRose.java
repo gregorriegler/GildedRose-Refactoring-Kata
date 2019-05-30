@@ -9,6 +9,7 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+
             if (isAgedBrie(item) || isConcertPasses(item)) {
                 if (item.quality < 50) {
                     addQuality(item, 1);
@@ -25,9 +26,7 @@ class GildedRose {
                 decreaseQualityOfNonLegendary(item);
             }
 
-            if (!isLegendary(item)) {
-                decreaseSellIn(item);
-            }
+            decreaseSellInOfNonLegendary(item);
 
             if (item.sellIn < 0) {
                 if (isAgedBrie(item)) {
@@ -40,6 +39,12 @@ class GildedRose {
                     decreaseQualityOfNonLegendary(item);
                 }
             }
+        }
+    }
+
+    private void decreaseSellInOfNonLegendary(Item item) {
+        if (!isLegendary(item)) {
+            decreaseSellIn(item);
         }
     }
 
