@@ -12,13 +12,13 @@ class GildedRose {
 
             if (isAgedBrie(item) || isConcertPasses(item)) {
                 if (item.quality < 50) {
-                    addQuality(item, 1);
+                    increaseQuality(item, 1);
 
                     if (isConcertPasses(item)) {
                         if (item.sellIn > 5 && item.sellIn < 11) {
-                            addQuality(item, 1);
+                            increaseQuality(item, 1);
                         } else if (item.sellIn < 6) {
-                            addQuality(item, 2);
+                            increaseQuality(item, 2);
                         }
                     }
                 }
@@ -28,9 +28,7 @@ class GildedRose {
 
             if (item.sellIn < 0) {
                 if (isAgedBrie(item)) {
-                    if (item.quality < 50) {
-                        addQuality(item, 1);
-                    }
+                    increaseQuality(item, 1);
                 } else if (isConcertPasses(item)) {
                     qualityToZero(item);
                 } else if (item.quality > 0) {
@@ -39,6 +37,15 @@ class GildedRose {
             }
 
             decreaseSellInOfNonLegendary(item);
+        }
+    }
+
+    private void increaseQuality(Item item, int by) {
+        if (by < 0) return;
+        if (item.quality + by >= 50) {
+            item.quality = 50;
+        } else {
+            item.quality += by;
         }
     }
 
