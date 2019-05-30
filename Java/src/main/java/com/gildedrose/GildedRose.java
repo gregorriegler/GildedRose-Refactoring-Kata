@@ -45,6 +45,12 @@ class GildedRose {
 }
 
 abstract class Product {
+    protected final Item item;
+
+    Product(Item item) {
+        this.item = item;
+    }
+
     public static void decreaseQuality(Item item) {
         if (item.quality == 0) return;
         addQuality(item, -1);
@@ -71,17 +77,24 @@ abstract class Product {
         item.sellIn = item.sellIn - 1;
     }
 
-    public abstract void handle();
+    public void handle() {
+        changeQuality();
+        changeSellIn();
+    }
+
+    public abstract void changeQuality();
+
+    public abstract void changeSellIn();
 
 }
 
 class AgedBrie extends Product {
-    private final Item item;
 
     public AgedBrie(Item item) {
-        this.item = item;
+        super(item);
     }
 
+    @Override
     public void changeQuality() {
         increaseQuality(item, 1);
 
@@ -90,24 +103,19 @@ class AgedBrie extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
 
 class ConcertPass extends Product {
-    private final Item item;
 
     public ConcertPass(Item item) {
-        this.item = item;
+        super(item);
     }
 
+    @Override
     public void changeQuality() {
         increaseQuality(item, 1);
 
@@ -122,44 +130,34 @@ class ConcertPass extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
 
 class Legendary extends Product {
-    private final Item item;
 
     public Legendary(Item item) {
-        this.item = item;
-    }
-
-    public void changeQuality() {
-    }
-
-    public void changeSellIn() {
+        super(item);
     }
 
     @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
+    public void changeQuality() {
+    }
+
+    @Override
+    public void changeSellIn() {
     }
 }
 
 class OtherProduct extends Product {
-    private final Item item;
 
     public OtherProduct(Item item) {
-        this.item = item;
+        super(item);
     }
 
+    @Override
     public void changeQuality() {
         decreaseQuality(item);
 
@@ -168,13 +166,8 @@ class OtherProduct extends Product {
         }
     }
 
+    @Override
     public void changeSellIn() {
         decreaseSellIn(item);
-    }
-
-    @Override
-    public void handle() {
-        changeQuality();
-        changeSellIn();
     }
 }
