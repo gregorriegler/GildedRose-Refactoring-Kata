@@ -10,7 +10,7 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
             Product product = ProductFactory.createProduct(item);
-            product.handle(this);
+            product.handle();
         }
     }
 
@@ -71,7 +71,7 @@ abstract class Product {
         item.sellIn = item.sellIn - 1;
     }
 
-    public abstract void handle(GildedRose gildedRose);
+    public abstract void handle();
 
 }
 
@@ -82,7 +82,7 @@ class AgedBrie extends Product {
         this.item = item;
     }
 
-    public static void changeQualityOfBrie(Item item) {
+    public void changeQuality() {
         increaseQuality(item, 1);
 
         if (item.sellIn < 0) {
@@ -90,18 +90,14 @@ class AgedBrie extends Product {
         }
     }
 
-    public static void changeSellInOfBrie(Item item) {
+    public void changeSellIn() {
         decreaseSellIn(item);
     }
 
-    public Item getItem() {
-        return item;
-    }
-
     @Override
-    public void handle(GildedRose gildedRose) {
-        changeQualityOfBrie(getItem());
-        changeSellInOfBrie(getItem());
+    public void handle() {
+        changeQuality();
+        changeSellIn();
     }
 }
 
@@ -112,7 +108,7 @@ class ConcertPass extends Product {
         this.item = item;
     }
 
-    public static void changeQualityOfConcertPass(Item item) {
+    public void changeQuality() {
         increaseQuality(item, 1);
 
         if (item.sellIn > 5 && item.sellIn < 11) {
@@ -126,18 +122,14 @@ class ConcertPass extends Product {
         }
     }
 
-    public static void changeSellInOfConcertPasses(Item item) {
+    public void changeSellIn() {
         decreaseSellIn(item);
     }
 
-    public Item getItem() {
-        return item;
-    }
-
     @Override
-    public void handle(GildedRose gildedRose) {
-        changeQualityOfConcertPass(getItem());
-        changeSellInOfConcertPasses(getItem());
+    public void handle() {
+        changeQuality();
+        changeSellIn();
     }
 }
 
@@ -148,20 +140,16 @@ class Legendary extends Product {
         this.item = item;
     }
 
-    public static void changeQualityOfLegendary(Item item) {
+    public void changeQuality() {
     }
 
-    public static void changeSellInOfLegendary(Item item) {
-    }
-
-    public Item getItem() {
-        return item;
+    public void changeSellIn() {
     }
 
     @Override
-    public void handle(GildedRose gildedRose) {
-        changeQualityOfLegendary(getItem());
-        changeSellInOfLegendary(getItem());
+    public void handle() {
+        changeQuality();
+        changeSellIn();
     }
 }
 
@@ -172,7 +160,7 @@ class OtherProduct extends Product {
         this.item = item;
     }
 
-    public static void changeQualityOfOtherItem(Item item) {
+    public void changeQuality() {
         decreaseQuality(item);
 
         if (item.sellIn < 0) {
@@ -180,17 +168,13 @@ class OtherProduct extends Product {
         }
     }
 
-    public static void changeSellInOfOtherItem(Item item) {
+    public void changeSellIn() {
         decreaseSellIn(item);
     }
 
-    public Item getItem() {
-        return item;
-    }
-
     @Override
-    public void handle(GildedRose gildedRose) {
-        changeQualityOfOtherItem(getItem());
-        changeSellInOfOtherItem(getItem());
+    public void handle() {
+        changeQuality();
+        changeSellIn();
     }
 }
