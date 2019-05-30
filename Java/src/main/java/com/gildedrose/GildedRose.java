@@ -11,19 +11,35 @@ class GildedRose {
         for (Item item : items) {
 
             if (isAgedBrie(item)) {
-                changeQualityOfBrie(item);
-                changeSellInOfBrie(item);
+                handleBrie(new AgedBrie(item));
             } else if (isConcertPasses(item)) {
-                changeQualityOfConcertPasses(item);
-                changeSellInOfConcertPasses(item);
+                handleConcertPasses(new ConcertPass(item));
             } else if (isLegendary(item)) {
-                changeQualityOfLegendary(item);
-                changeSellInOfLegendary(item);
+                handleLegendary(new Legendary(item));
             } else {
-                changeQualityOfOtherItem(item);
-                changeSellInOfOtherItem(item);
+                handleOtherItems(new OtherProduct(item));
             }
         }
+    }
+
+    private void handleOtherItems(OtherProduct otherProduct) {
+        changeQualityOfOtherItem(otherProduct.getItem());
+        changeSellInOfOtherItem(otherProduct.getItem());
+    }
+
+    private void handleLegendary(Legendary legendary) {
+        changeQualityOfLegendary(legendary.getItem());
+        changeSellInOfLegendary(legendary.getItem());
+    }
+
+    private void handleConcertPasses(ConcertPass concertPass) {
+        changeQualityOfConcertPasses(concertPass.getItem());
+        changeSellInOfConcertPasses(concertPass.getItem());
+    }
+
+    private void handleBrie(AgedBrie agedBrie) {
+        changeQualityOfBrie(agedBrie.getItem());
+        changeSellInOfBrie(agedBrie.getItem());
     }
 
     private boolean isAgedBrie(Item item) {
@@ -112,4 +128,52 @@ class GildedRose {
         item.sellIn = item.sellIn - 1;
     }
 
+}
+
+class AgedBrie {
+    private final Item item;
+
+    public AgedBrie(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+}
+
+class ConcertPass {
+    private final Item item;
+
+    public ConcertPass(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+}
+
+class Legendary {
+    private final Item item;
+
+    public Legendary(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+}
+
+class OtherProduct {
+    private final Item item;
+
+    public OtherProduct(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
+    }
 }
