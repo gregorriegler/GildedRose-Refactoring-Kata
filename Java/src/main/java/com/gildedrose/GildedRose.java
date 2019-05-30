@@ -9,20 +9,20 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            Product product = createProduct(item);
+            product.handle(this);
+        }
+    }
 
-            if (isAgedBrie(item)) {
-                AgedBrie agedBrie = new AgedBrie(item);
-                agedBrie.handle(this);
-            } else if (isConcertPasses(item)) {
-                ConcertPass concertPass = new ConcertPass(item);
-                concertPass.handle(this);
-            } else if (isLegendary(item)) {
-                Legendary legendary = new Legendary(item);
-                legendary.handle(this);
-            } else {
-                OtherProduct otherProduct = new OtherProduct(item);
-                otherProduct.handle(this);
-            }
+    private Product createProduct(Item item) {
+        if (isAgedBrie(item)) {
+            return new AgedBrie(item);
+        } else if (isConcertPasses(item)) {
+            return new ConcertPass(item);
+        } else if (isLegendary(item)) {
+            return new Legendary(item);
+        } else {
+            return new OtherProduct(item);
         }
     }
 
@@ -114,7 +114,11 @@ class GildedRose {
 
 }
 
-class AgedBrie {
+interface Product {
+    void handle(GildedRose gildedRose);
+}
+
+class AgedBrie implements Product {
     private final Item item;
 
     public AgedBrie(Item item) {
@@ -125,13 +129,14 @@ class AgedBrie {
         return item;
     }
 
+    @Override
     public void handle(GildedRose gildedRose) {
         gildedRose.changeQualityOfBrie(getItem());
         gildedRose.changeSellInOfBrie(getItem());
     }
 }
 
-class ConcertPass {
+class ConcertPass implements Product {
     private final Item item;
 
     public ConcertPass(Item item) {
@@ -142,13 +147,14 @@ class ConcertPass {
         return item;
     }
 
+    @Override
     public void handle(GildedRose gildedRose) {
         gildedRose.changeQualityOfConcertPasses(getItem());
         gildedRose.changeSellInOfConcertPasses(getItem());
     }
 }
 
-class Legendary {
+class Legendary implements Product {
     private final Item item;
 
     public Legendary(Item item) {
@@ -159,13 +165,14 @@ class Legendary {
         return item;
     }
 
+    @Override
     public void handle(GildedRose gildedRose) {
         gildedRose.changeQualityOfLegendary(getItem());
         gildedRose.changeSellInOfLegendary(getItem());
     }
 }
 
-class OtherProduct {
+class OtherProduct implements Product {
     private final Item item;
 
     public OtherProduct(Item item) {
@@ -176,6 +183,7 @@ class OtherProduct {
         return item;
     }
 
+    @Override
     public void handle(GildedRose gildedRose) {
         gildedRose.changeQualityOfOtherItem(getItem());
         gildedRose.changeSellInOfOtherItem(getItem());
