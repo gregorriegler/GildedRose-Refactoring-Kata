@@ -15,33 +15,37 @@ class GildedRose {
     }
 
     public void changeQualityOfOtherItem(Item item) {
-        decreaseQuality(item);
+        Product.decreaseQuality(item);
 
         if (item.sellIn < 0) {
-            decreaseQuality(item);
+            Product.decreaseQuality(item);
         }
     }
 
     public void changeQualityOfConcertPasses(Item item) {
-        increaseQuality(item, 1);
+        Product.increaseQuality(item, 1);
 
         if (item.sellIn > 5 && item.sellIn < 11) {
-            increaseQuality(item, 1);
+            Product.increaseQuality(item, 1);
         } else if (item.sellIn < 6) {
-            increaseQuality(item, 2);
+            Product.increaseQuality(item, 2);
         }
 
         if (item.sellIn < 0) {
-            qualityToZero(item);
+            Product.qualityToZero(item);
         }
     }
 
     public void changeQualityOfBrie(Item item) {
-        increaseQuality(item, 1);
+        Product.increaseQuality(item, 1);
 
         if (item.sellIn < 0) {
-            increaseQuality(item, 1);
+            Product.increaseQuality(item, 1);
         }
+    }
+
+    public void changeSellInOfBrie(Item item) {
+        Product.decreaseSellIn(item);
     }
 
     public void changeQualityOfLegendary(Item item) {
@@ -51,42 +55,13 @@ class GildedRose {
     }
 
     public void changeSellInOfOtherItem(Item item) {
-        decreaseSellIn(item);
+        Product.decreaseSellIn(item);
     }
 
     public void changeSellInOfConcertPasses(Item item) {
-        decreaseSellIn(item);
+        Product.decreaseSellIn(item);
     }
 
-    public void changeSellInOfBrie(Item item) {
-        decreaseSellIn(item);
-    }
-
-    public void decreaseQuality(Item item) {
-        if (item.quality == 0) return;
-        addQuality(item, -1);
-    }
-
-    public void increaseQuality(Item item, int by) {
-        if (by < 0) return;
-        if (item.quality + by >= 50) {
-            item.quality = 50;
-        } else {
-            item.quality += by;
-        }
-    }
-
-    public void qualityToZero(Item item) {
-        item.quality = item.quality - item.quality;
-    }
-
-    public void addQuality(Item item, int i) {
-        item.quality = item.quality + i;
-    }
-
-    public void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
-    }
 
     private static class ProductFactory {
         public ProductFactory() {
@@ -118,11 +93,38 @@ class GildedRose {
     }
 }
 
-interface Product {
-    void handle(GildedRose gildedRose);
+abstract class Product {
+    public static void decreaseQuality(Item item) {
+        if (item.quality == 0) return;
+        addQuality(item, -1);
+    }
+
+    public static void increaseQuality(Item item, int by) {
+        if (by < 0) return;
+        if (item.quality + by >= 50) {
+            item.quality = 50;
+        } else {
+            item.quality += by;
+        }
+    }
+
+    public static void qualityToZero(Item item) {
+        item.quality = item.quality - item.quality;
+    }
+
+    public static void addQuality(Item item, int i) {
+        item.quality = item.quality + i;
+    }
+
+    public static void decreaseSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
+    }
+
+    public abstract void handle(GildedRose gildedRose);
+
 }
 
-class AgedBrie implements Product {
+class AgedBrie extends Product {
     private final Item item;
 
     public AgedBrie(Item item) {
@@ -140,7 +142,7 @@ class AgedBrie implements Product {
     }
 }
 
-class ConcertPass implements Product {
+class ConcertPass extends Product {
     private final Item item;
 
     public ConcertPass(Item item) {
@@ -158,7 +160,7 @@ class ConcertPass implements Product {
     }
 }
 
-class Legendary implements Product {
+class Legendary extends Product {
     private final Item item;
 
     public Legendary(Item item) {
@@ -176,7 +178,7 @@ class Legendary implements Product {
     }
 }
 
-class OtherProduct implements Product {
+class OtherProduct extends Product {
     private final Item item;
 
     public OtherProduct(Item item) {
