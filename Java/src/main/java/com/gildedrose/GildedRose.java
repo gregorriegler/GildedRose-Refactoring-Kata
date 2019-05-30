@@ -21,11 +21,9 @@ class GildedRose {
                         }
                     }
                 }
-            } else {
-                if (item.quality > 0) {
-                    if (!isLegendary(item)) {
-                        addQuality(item, -1);
-                    }
+            } else if (item.quality > 0) {
+                if (!isLegendary(item)) {
+                    addQuality(item, -1);
                 }
             }
 
