@@ -13,23 +13,13 @@ class GildedRose {
             if (isAgedBrie(item)) {
                 increaseQuality(item, 1);
 
-                if (isConcertPasses(item)) {
-                    if (item.sellIn > 5 && item.sellIn < 11) {
-                        increaseQuality(item, 1);
-                    } else if (item.sellIn < 6) {
-                        increaseQuality(item, 2);
-                    }
-                }
-
             } else if (isConcertPasses(item)) {
                 increaseQuality(item, 1);
 
-                if (isConcertPasses(item)) {
-                    if (item.sellIn > 5 && item.sellIn < 11) {
-                        increaseQuality(item, 1);
-                    } else if (item.sellIn < 6) {
-                        increaseQuality(item, 2);
-                    }
+                if (item.sellIn > 5 && item.sellIn < 11) {
+                    increaseQuality(item, 1);
+                } else if (item.sellIn < 6) {
+                    increaseQuality(item, 2);
                 }
 
             } else {
