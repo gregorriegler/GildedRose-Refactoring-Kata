@@ -18,7 +18,6 @@ class GildedRose {
                 }
 
                 decreaseSellIn(item);
-
             } else if (isConcertPasses(item)) {
                 increaseQuality(item, 1);
 
@@ -33,21 +32,15 @@ class GildedRose {
                 }
 
                 decreaseSellIn(item);
-
-            } else if(isLegendary(item)) {
-
+            } else if (isLegendary(item)) {
 
             } else {
                 if (item.quality > 0) {
-                    if (!isLegendary(item)) {
-                        addQuality(item, -1);
-                    }
+                    addQuality(item, -1);
                 }
 
                 if (item.sellIn < 0) {
-                    if (!isLegendary(item)) {
-                        addQuality(item, -1);
-                    }
+                    addQuality(item, -1);
                 }
 
                 decreaseSellIn(item);
