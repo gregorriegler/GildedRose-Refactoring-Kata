@@ -9,14 +9,7 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!isAgedBrie(item)
-                && !isConcertPasses(item)) {
-                if (item.quality > 0) {
-                    if (!isLegendary(item)) {
-                        addQuality(item, -1);
-                    }
-                }
-            } else {
+            if (isAgedBrie(item) || isConcertPasses(item)) {
                 if (item.quality < 50) {
                     addQuality(item, 1);
 
@@ -28,6 +21,12 @@ class GildedRose {
                         }
                     }
                 }
+            } else {
+                if (item.quality > 0) {
+                    if (!isLegendary(item)) {
+                        addQuality(item, -1);
+                    }
+                }
             }
 
             if (!isLegendary(item)) {
@@ -35,19 +34,19 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                if (!isAgedBrie(item)) {
-                    if (!isConcertPasses(item)) {
+                if (isAgedBrie(item)) {
+                    if (item.quality < 50) {
+                        addQuality(item, 1);
+                    }
+                } else {
+                    if (isConcertPasses(item)) {
+                        qualityToZero(item);
+                    } else {
                         if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                            if (!isLegendary(item)) {
                                 addQuality(item, -1);
                             }
                         }
-                    } else {
-                        qualityToZero(item);
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        addQuality(item, 1);
                     }
                 }
             }
