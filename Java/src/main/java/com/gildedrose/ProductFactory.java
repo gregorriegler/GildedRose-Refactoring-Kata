@@ -1,7 +1,7 @@
 package com.gildedrose;
 
-class ProductFactory {
-    public ProductFactory() {
+public class ProductFactory {
+    private ProductFactory() {
     }
 
     public static Product createProduct(Item item) {
@@ -11,9 +11,15 @@ class ProductFactory {
             return new ConcertPass(item);
         } else if (isLegendary(item)) {
             return new Legendary(item);
+        } else if (isConjured(item)) {
+            return new Conjured(item);
         } else {
             return new OtherProduct(item);
         }
+    }
+
+    private static boolean isConjured(Item item) {
+        return item.name.equals("Conjured Mana Cake");
     }
 
     private static boolean isAgedBrie(Item item) {

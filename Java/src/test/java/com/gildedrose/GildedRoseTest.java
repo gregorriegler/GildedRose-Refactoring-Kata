@@ -43,12 +43,30 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void someItem_conjured_qualityDecreasesBy2() {
+    public void someItem_shouldHaveBeenSold_qualityDecreasesBy2() {
         GildedRose rose = gildedRoseOf(SOME_ITEM, -1, 5);
 
         rose.updateQuality();
 
         assertEquals(3, rose.items[0].quality);
+    }
+
+    @Test
+    public void conjured_qualityDecreasesBy2() {
+        GildedRose rose = gildedRoseOf(CONJURED, 1, 5);
+
+        rose.updateQuality();
+
+        assertEquals(3, rose.items[0].quality);
+    }
+
+    @Test
+    public void conjured_shouldHaveBeenSold_qualityDecreasesBy4() {
+        GildedRose rose = gildedRoseOf(CONJURED, -1, 10);
+
+        rose.updateQuality();
+
+        assertEquals(6, rose.items[0].quality);
     }
 
     @Test
@@ -154,6 +172,7 @@ public class GildedRoseTest {
     public static final String LEGENDARY = "Sulfuras, Hand of Ragnaros";
     public static final String CONCERT_PASS = "Backstage passes to a TAFKAL80ETC concert";
     public static final String AGED_BRIE = "Aged Brie";
+    public static final String CONJURED = "Conjured Mana Cake";
 
     private GildedRose gildedRoseOf(String aged_brie, int sellIn, int quality) {
         return new GildedRose(anItemOf(aged_brie, sellIn, quality));
