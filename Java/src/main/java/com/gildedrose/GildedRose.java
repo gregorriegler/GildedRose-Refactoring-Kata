@@ -14,55 +14,6 @@ class GildedRose {
         }
     }
 
-    public void changeQualityOfOtherItem(Item item) {
-        Product.decreaseQuality(item);
-
-        if (item.sellIn < 0) {
-            Product.decreaseQuality(item);
-        }
-    }
-
-    public void changeQualityOfConcertPasses(Item item) {
-        Product.increaseQuality(item, 1);
-
-        if (item.sellIn > 5 && item.sellIn < 11) {
-            Product.increaseQuality(item, 1);
-        } else if (item.sellIn < 6) {
-            Product.increaseQuality(item, 2);
-        }
-
-        if (item.sellIn < 0) {
-            Product.qualityToZero(item);
-        }
-    }
-
-    public void changeQualityOfBrie(Item item) {
-        Product.increaseQuality(item, 1);
-
-        if (item.sellIn < 0) {
-            Product.increaseQuality(item, 1);
-        }
-    }
-
-    public void changeSellInOfBrie(Item item) {
-        Product.decreaseSellIn(item);
-    }
-
-    public void changeQualityOfLegendary(Item item) {
-    }
-
-    public void changeSellInOfLegendary(Item item) {
-    }
-
-    public void changeSellInOfOtherItem(Item item) {
-        Product.decreaseSellIn(item);
-    }
-
-    public void changeSellInOfConcertPasses(Item item) {
-        Product.decreaseSellIn(item);
-    }
-
-
     private static class ProductFactory {
         public ProductFactory() {
         }
@@ -131,14 +82,26 @@ class AgedBrie extends Product {
         this.item = item;
     }
 
+    public static void changeQualityOfBrie(Item item) {
+        increaseQuality(item, 1);
+
+        if (item.sellIn < 0) {
+            increaseQuality(item, 1);
+        }
+    }
+
+    public static void changeSellInOfBrie(Item item) {
+        decreaseSellIn(item);
+    }
+
     public Item getItem() {
         return item;
     }
 
     @Override
     public void handle(GildedRose gildedRose) {
-        gildedRose.changeQualityOfBrie(getItem());
-        gildedRose.changeSellInOfBrie(getItem());
+        changeQualityOfBrie(getItem());
+        changeSellInOfBrie(getItem());
     }
 }
 
@@ -149,14 +112,32 @@ class ConcertPass extends Product {
         this.item = item;
     }
 
+    public static void changeQualityOfConcertPass(Item item) {
+        increaseQuality(item, 1);
+
+        if (item.sellIn > 5 && item.sellIn < 11) {
+            increaseQuality(item, 1);
+        } else if (item.sellIn < 6) {
+            increaseQuality(item, 2);
+        }
+
+        if (item.sellIn < 0) {
+            qualityToZero(item);
+        }
+    }
+
+    public static void changeSellInOfConcertPasses(Item item) {
+        decreaseSellIn(item);
+    }
+
     public Item getItem() {
         return item;
     }
 
     @Override
     public void handle(GildedRose gildedRose) {
-        gildedRose.changeQualityOfConcertPasses(getItem());
-        gildedRose.changeSellInOfConcertPasses(getItem());
+        changeQualityOfConcertPass(getItem());
+        changeSellInOfConcertPasses(getItem());
     }
 }
 
@@ -167,14 +148,20 @@ class Legendary extends Product {
         this.item = item;
     }
 
+    public static void changeQualityOfLegendary(Item item) {
+    }
+
+    public static void changeSellInOfLegendary(Item item) {
+    }
+
     public Item getItem() {
         return item;
     }
 
     @Override
     public void handle(GildedRose gildedRose) {
-        gildedRose.changeQualityOfLegendary(getItem());
-        gildedRose.changeSellInOfLegendary(getItem());
+        changeQualityOfLegendary(getItem());
+        changeSellInOfLegendary(getItem());
     }
 }
 
@@ -185,13 +172,25 @@ class OtherProduct extends Product {
         this.item = item;
     }
 
+    public static void changeQualityOfOtherItem(Item item) {
+        decreaseQuality(item);
+
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
+        }
+    }
+
+    public static void changeSellInOfOtherItem(Item item) {
+        decreaseSellIn(item);
+    }
+
     public Item getItem() {
         return item;
     }
 
     @Override
     public void handle(GildedRose gildedRose) {
-        gildedRose.changeQualityOfOtherItem(getItem());
-        gildedRose.changeSellInOfOtherItem(getItem());
+        changeQualityOfOtherItem(getItem());
+        changeSellInOfOtherItem(getItem());
     }
 }
