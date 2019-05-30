@@ -35,28 +35,16 @@ class GildedRose {
             } else if (isLegendary(item)) {
 
             } else {
-                if (item.quality > 0) {
-                    addQuality(item, -1);
-                }
+                decreaseQuality(item);
 
                 if (item.sellIn < 0) {
-                    addQuality(item, -1);
+                    decreaseQuality(item);
                 }
 
                 decreaseSellIn(item);
             }
         }
     }
-
-    private void increaseQuality(Item item, int by) {
-        if (by < 0) return;
-        if (item.quality + by >= 50) {
-            item.quality = 50;
-        } else {
-            item.quality += by;
-        }
-    }
-
 
     private boolean isAgedBrie(Item item) {
         return item.name.equals("Aged Brie");
@@ -70,8 +58,18 @@ class GildedRose {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
-    private void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
+    private void decreaseQuality(Item item) {
+        if (item.quality == 0) return;
+        addQuality(item, -1);
+    }
+
+    private void increaseQuality(Item item, int by) {
+        if (by < 0) return;
+        if (item.quality + by >= 50) {
+            item.quality = 50;
+        } else {
+            item.quality += by;
+        }
     }
 
     private void qualityToZero(Item item) {
@@ -81,4 +79,9 @@ class GildedRose {
     private void addQuality(Item item, int i) {
         item.quality = item.quality + i;
     }
+
+    private void decreaseSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
+    }
+
 }
