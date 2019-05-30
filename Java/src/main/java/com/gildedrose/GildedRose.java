@@ -9,33 +9,9 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            Product product = createProduct(item);
+            Product product = ProductFactory.createProduct(item);
             product.handle(this);
         }
-    }
-
-    private Product createProduct(Item item) {
-        if (isAgedBrie(item)) {
-            return new AgedBrie(item);
-        } else if (isConcertPasses(item)) {
-            return new ConcertPass(item);
-        } else if (isLegendary(item)) {
-            return new Legendary(item);
-        } else {
-            return new OtherProduct(item);
-        }
-    }
-
-    private boolean isAgedBrie(Item item) {
-        return item.name.equals("Aged Brie");
-    }
-
-    private boolean isConcertPasses(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-    }
-
-    private boolean isLegendary(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
     public void changeQualityOfOtherItem(Item item) {
@@ -112,6 +88,34 @@ class GildedRose {
         item.sellIn = item.sellIn - 1;
     }
 
+    private static class ProductFactory {
+        public ProductFactory() {
+        }
+
+        public static Product createProduct(Item item) {
+            if (isAgedBrie(item)) {
+                return new AgedBrie(item);
+            } else if (isConcertPasses(item)) {
+                return new ConcertPass(item);
+            } else if (isLegendary(item)) {
+                return new Legendary(item);
+            } else {
+                return new OtherProduct(item);
+            }
+        }
+
+        private static boolean isAgedBrie(Item item) {
+            return item.name.equals("Aged Brie");
+        }
+
+        private static boolean isConcertPasses(Item item) {
+            return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+        }
+
+        private static boolean isLegendary(Item item) {
+            return item.name.equals("Sulfuras, Hand of Ragnaros");
+        }
+    }
 }
 
 interface Product {
