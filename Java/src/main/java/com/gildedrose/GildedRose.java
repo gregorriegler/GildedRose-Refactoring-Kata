@@ -60,6 +60,10 @@ abstract class Product {
 
     public abstract void changeSellIn();
 
+    protected boolean shouldHaveBeenSold() {
+        return item.sellIn < 0;
+    }
+
     protected void decreaseQuality() {
         if (item.quality == 0) return;
         addQuality(-1);
@@ -96,9 +100,9 @@ class AgedBrie extends Product {
 
     @Override
     public void changeQuality() {
-        increaseQuality(1);
-
-        if (item.sellIn < 0) {
+        if (shouldHaveBeenSold()) {
+            increaseQuality(2);
+        } else {
             increaseQuality(1);
         }
     }
@@ -119,15 +123,27 @@ class ConcertPass extends Product {
     public void changeQuality() {
         increaseQuality(1);
 
-        if (item.sellIn > 5 && item.sellIn < 11) {
+        if (daysLeftBetween(5, 11)) {
             increaseQuality(1);
-        } else if (item.sellIn < 6) {
+        } else if (lessThanDaysLeft(6)) {
             increaseQuality(2);
         }
 
-        if (item.sellIn < 0) {
+        if (shouldHaveBeenSold()) {
             qualityToZero();
         }
+    }
+
+    protected boolean daysLeftBetween(int min, int max) {
+        return moreThanDaysLeft(min) && lessThanDaysLeft(max);
+    }
+
+    protected boolean moreThanDaysLeft(int days) {
+        return item.sellIn > days;
+    }
+
+    protected boolean lessThanDaysLeft(int days) {
+        return item.sellIn < days;
     }
 
     @Override
@@ -161,7 +177,7 @@ class OtherProduct extends Product {
     public void changeQuality() {
         decreaseQuality();
 
-        if (item.sellIn < 0) {
+        if (shouldHaveBeenSold()) {
             decreaseQuality();
         }
     }
