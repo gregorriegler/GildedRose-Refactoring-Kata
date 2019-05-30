@@ -36,13 +36,11 @@ class GildedRose {
                     if (item.quality < 50) {
                         addQuality(item, 1);
                     }
-                } else {
-                    if (isConcertPasses(item)) {
-                        qualityToZero(item);
-                    } else if (item.quality > 0) {
-                        if (!isLegendary(item)) {
-                            addQuality(item, -1);
-                        }
+                } else if (isConcertPasses(item)) {
+                    qualityToZero(item);
+                } else if (item.quality > 0) {
+                    if (!isLegendary(item)) {
+                        addQuality(item, -1);
                     }
                 }
             }
