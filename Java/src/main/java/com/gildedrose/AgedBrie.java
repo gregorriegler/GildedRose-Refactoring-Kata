@@ -1,22 +1,18 @@
 package com.gildedrose;
 
-class AgedBrie extends Product {
-
-    public AgedBrie(Item item) {
-        super(item);
-    }
+class AgedBrie extends Category {
 
     @Override
-    public void changeQuality() {
-        if (shouldHaveBeenSold()) {
-            increaseQuality(2);
+    public void changeQuality(Item item) {
+        if (shouldHaveBeenSold(item)) {
+            increaseQuality(item, 2);
         } else {
-            increaseQuality(1);
+            increaseQuality(item, 1);
         }
     }
 
     @Override
-    public void changeSellIn() {
-        decreaseSellIn();
+    public void changeSellIn(Item item) {
+        decreaseSellIn(item);
     }
 }

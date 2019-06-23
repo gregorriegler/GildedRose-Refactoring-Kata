@@ -1,22 +1,18 @@
 package com.gildedrose;
 
-class Conjured extends Product {
-
-    public Conjured(Item item) {
-        super(item);
-    }
+class Conjured extends Category {
 
     @Override
-    public void changeQuality() {
-        if (shouldHaveBeenSold()) {
-            decreaseQuality(4);
+    public void changeQuality(Item item) {
+        if (shouldHaveBeenSold(item)) {
+            decreaseQuality(item, 4);
         } else {
-            decreaseQuality(2);
+            decreaseQuality(item, 2);
         }
     }
 
     @Override
-    public void changeSellIn() {
-        decreaseSellIn();
+    public void changeSellIn(Item item) {
+        decreaseSellIn(item);
     }
 }

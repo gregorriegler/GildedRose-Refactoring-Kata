@@ -1,22 +1,18 @@
 package com.gildedrose;
 
-class OtherProduct extends Product {
-
-    public OtherProduct(Item item) {
-        super(item);
-    }
+class OtherProduct extends Category {
 
     @Override
-    public void changeQuality() {
-        if (shouldHaveBeenSold()) {
-            decreaseQuality(2);
+    public void changeQuality(Item item) {
+        if (shouldHaveBeenSold(item)) {
+            decreaseQuality(item, 2);
         } else {
-            decreaseQuality(1);
+            decreaseQuality(item, 1);
         }
     }
 
     @Override
-    public void changeSellIn() {
-        decreaseSellIn();
+    public void changeSellIn(Item item) {
+        decreaseSellIn(item);
     }
 }

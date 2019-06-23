@@ -9,8 +9,8 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            Product product = ProductFactory.createProduct(item);
-            product.handle();
+            Category category = CategoryFactory.createCategory(item);
+            category.handle(item);
         }
     }
 

@@ -1,16 +1,12 @@
 package com.gildedrose;
 
-class Legendary extends Product {
+class Legendary extends Category {
 
-    public Legendary(Item item) {
-        super(item);
+    @Override
+    public void changeQuality(Item item) {
     }
 
     @Override
-    public void changeQuality() {
-    }
-
-    @Override
-    public void changeSellIn() {
+    public void changeSellIn(Item item) {
     }
 }

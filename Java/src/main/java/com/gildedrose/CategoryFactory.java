@@ -1,20 +1,20 @@
 package com.gildedrose;
 
-public class ProductFactory {
-    private ProductFactory() {
+public class CategoryFactory {
+    private CategoryFactory() {
     }
 
-    public static Product createProduct(Item item) {
+    public static Category createCategory(Item item) {
         if (isAgedBrie(item)) {
-            return new AgedBrie(item);
+            return new AgedBrie();
         } else if (isConcertPasses(item)) {
-            return new ConcertPass(item);
+            return new ConcertPass();
         } else if (isLegendary(item)) {
-            return new Legendary(item);
+            return new Legendary();
         } else if (isConjured(item)) {
-            return new Conjured(item);
+            return new Conjured();
         } else {
-            return new OtherProduct(item);
+            return new OtherProduct();
         }
     }
 
