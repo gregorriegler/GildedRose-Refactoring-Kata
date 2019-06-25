@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-class Legendary extends Category {
+public class Legendary extends Category {
 
     @Override
     public void changeQuality(Item item) {
