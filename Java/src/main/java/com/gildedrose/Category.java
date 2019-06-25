@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-abstract class Category {
+public abstract class Category {
 
     public void handle(Item item) {
         changeQuality(item);
