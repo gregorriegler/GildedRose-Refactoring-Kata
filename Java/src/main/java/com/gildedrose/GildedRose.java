@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import java.util.Arrays;
+
 class GildedRose {
     Item[] items;
 
@@ -58,5 +60,9 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    @Override public String toString() {
+        return Arrays.toString(items);
     }
 }
