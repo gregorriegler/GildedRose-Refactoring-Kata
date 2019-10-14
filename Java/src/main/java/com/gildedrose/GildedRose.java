@@ -29,7 +29,7 @@ class GildedRose {
                 }
             }
         } else {
-            if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 others(item);
             } else {
                 others(item);
