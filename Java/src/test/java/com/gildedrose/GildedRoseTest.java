@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import org.approvaltests.Approvals;
 import org.approvaltests.combinations.CombinationApprovals;
 import org.approvaltests.legacycode.Range;
 import org.junit.Test;
@@ -12,6 +13,11 @@ public class GildedRoseTest {
         Integer[] sellIns = Range.get(0,10);
         Integer[] qualities = Range.get(-10,50);
         CombinationApprovals.verifyAllCombinations(this::gildedRoseWith, names, sellIns, qualities);
+    }
+
+    @Test
+    public void conjured() {
+        Approvals.verify(gildedRoseWith("Conjured", 8, 4));
     }
 
     protected String gildedRoseWith(String name, int sellIn, int quality) {
