@@ -11,7 +11,11 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            handleItem(item);
+            if (!item.name.equals("Aged Brie")) {
+                handleItem(item);
+            } else {
+                handleItem(item);
+            }
         }
     }
 
