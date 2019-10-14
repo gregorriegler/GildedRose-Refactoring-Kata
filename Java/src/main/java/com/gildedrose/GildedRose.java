@@ -15,7 +15,7 @@ class GildedRose {
         }
     }
 
-    protected void handleItem(Item item) {
+    private void handleItem(Item item) {
         if (item.name.equals("Aged Brie")) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1;
