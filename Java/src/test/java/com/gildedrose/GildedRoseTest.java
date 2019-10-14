@@ -20,6 +20,11 @@ public class GildedRoseTest {
         Approvals.verify(gildedRoseWith("Conjured", 8, 4));
     }
 
+    @Test
+    public void conjuredGettinEmpty() {
+        Approvals.verify(gildedRoseWith("Conjured", 8, 1));
+    }
+
     protected String gildedRoseWith(String name, int sellIn, int quality) {
         GildedRose app = new GildedRose(new Item[]{new Item(name, sellIn, quality)});
         app.updateQuality();

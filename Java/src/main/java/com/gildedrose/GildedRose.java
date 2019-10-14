@@ -56,6 +56,10 @@ class GildedRose {
             case "Sulfuras, Hand of Ragnaros":
 
                 break;
+            case "Conjured":
+                item.quality = item.quality - 2;
+                if(item.quality < 0) item.quality = 0;
+                break;
             default:
                 if (item.quality > 0) {
                     item.quality = item.quality - 1;
